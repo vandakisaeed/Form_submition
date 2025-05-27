@@ -46,9 +46,9 @@ export const searchProducts = async ({ category, minPrice, maxPrice, query } = {
     maxPrice,
     query
   });
-  if (error) throw new Error(z.prettifyError(error));
+  if (error) return { error: z.prettifyError(error), products: [] };
   const response = await fetch('https://fakestoreapi.com/products');
-  if (!response.ok) throw new Error('Something went wrong while fetching products');
+  if (!response.ok) return { error: 'Something went wrong while fetching products', products: [] };
   const products = await response.json();
   const filteredProducts = products.filter(product => {
     const matchesCategory = !data.category || product.category === data.category;
@@ -59,6 +59,5 @@ export const searchProducts = async ({ category, minPrice, maxPrice, query } = {
 
     return matchesCategory && matchesMinPrice && matchesMaxPrice && matchesQuery;
   });
-
-  return filteredProducts;
+  return { products: filteredProducts, error: null };
 };
