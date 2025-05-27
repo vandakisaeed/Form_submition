@@ -5,7 +5,9 @@ const MainLayout = () => {
     <>
       <nav className='navbar bg-base-100 shadow-sm'>
         <div className='flex-1'>
-          <a className='btn btn-ghost text-xl'>Form Submission</a>
+          <Link to='/' className='btn btn-ghost normal-case text-xl'>
+            Form Submission
+          </Link>
         </div>
         <div className='flex-none'>
           <ul className='menu menu-horizontal px-1'>
