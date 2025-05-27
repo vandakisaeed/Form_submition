@@ -1,12 +1,49 @@
-# React + Vite
+# WBS Form Submission
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React application for submitting forms, developed as part of the WebDev WBS Coding School curriculum.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Follow the steps below to set up and run the project locally.
 
-## Expanding the ESLint configuration
+### 1. Clone the Repository
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Use the following command to clone the repository:
+
+```bash
+git clone git@github.com:WebDev-WBSCodingSchool/wbs-form-submission.git
+```
+
+Navigate into the project directory:
+
+```bash
+cd wbs-form-submission
+```
+
+### 2. Install Dependencies
+
+Install all necessary dependencies using npm:
+
+```bash
+npm install
+```
+
+### Start the React Application
+
+Start the development server:
+
+```bash
+npm start
+```
+
+This command will start the React application, it'll be available at `http://localhost:5173`
+
+### Use the Application
+
+Once the application is running in your browser, follow the on-screen instructions to complete the exercises
+
+### Troubleshooting
+
+- Make sure you have `Node.js` and `npm` installed.
+
+- If port `5173` is busy, Vite might use another one, check the terminal!
