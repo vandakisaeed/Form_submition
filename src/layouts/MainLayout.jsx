@@ -9,7 +9,7 @@ const MainLayout = () => {
         </div>
         <div className='flex-none'>
           <ul className='menu menu-horizontal px-1'>
-            <Link to='/' className='btn btn-ghost'>
+            <Link to='/contact' className='btn btn-ghost'>
               Contact
             </Link>
             <Link to='/register' className='btn btn-ghost'>
