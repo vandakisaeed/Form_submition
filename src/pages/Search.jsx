@@ -10,10 +10,10 @@ const Search = () => {
       <SearchResults productsPromise={productsPromise} />
       <div className='mockup-code mt-5'>
         <pre>
-          <code>
-            Right now, the promise returned by searchProducts is being passed down to the
-            SearchResults component as a prop to show some initial data.
-          </code>
+          <code>Right now, the promise returned by searchProducts is being passed down to the</code>
+        </pre>
+        <pre>
+          <code>SearchResults component as a prop to show some initial data.</code>
         </pre>
         <pre>
           <code>In this component (Search):</code>
@@ -27,26 +27,39 @@ const Search = () => {
         <pre data-prefix='3'>
           <code>
             - Pass the productsPromise result as the initial state value for useActionState (you
-            might need the use hook to read the value of the promise)
           </code>
         </pre>
+        <pre>
+          <code>might need the use hook to read the value of the promise)</code>
+        </pre>
         <pre data-prefix='4'>
-          <code>
-            - Connect your form to the action returned by useActionState, remember that when
-            composing actions with this hooks, your action now takes two parameters!
-          </code>
+          <code>- Modify SearchResults to receive the products as prop directly</code>
         </pre>
         <pre data-prefix='5'>
           <code>
-            - Modify your action so it returns and object, the state, with a key of produdcts with
-            the array of products found, or a key or errors if any
+            - Connect your form to the action returned by useActionState, remember that when
+          </code>
+        </pre>
+        <pre>
+          <code>composing actions with this hook, your action now takes two parameters!</code>
+        </pre>
+        <pre data-prefix='6'>
+          <code>
+            - Modify your action so it calls searchProducts with the right filters and returns and
+            object,
           </code>
         </pre>
         <pre data-prefix='6'>
-          <code>- Use the errors from the action state to show feedback to the user.</code>
+          <code>
+            the state, with a key of produdcts with the array of products found, or a key or errors
+            if any
+          </code>
         </pre>
         <pre data-prefix='7'>
-          <code>- Modify SearchResults to receive the products as prop directly</code>
+          <code>- Use the errors from the action state to show feedback to the user</code>
+        </pre>
+        <pre data-prefix='8'>
+          <code>- Control the form inputs with local state to avoid resetting afer submission</code>
         </pre>
       </div>
     </div>
