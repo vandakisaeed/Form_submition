@@ -9,6 +9,13 @@ const contactFormSchema = z.object({
   message: z.string('Message needs to be a string').min(1, 'Message is required')
 });
 
+const productSearchSchema = z.object({
+  category: z.string().optional(),
+  minPrice: z.number().nonnegative().optional(),
+  maxPrice: z.number().nonnegative().optional(),
+  query: z.string().optional()
+});
+
 export const registerNewsletter = async email => {
   await new Promise(resolve => setTimeout(resolve, 1000));
   const { data, error } = newsletterSchema.safeParse(email);
@@ -30,4 +37,28 @@ export const sendContactForm = async ({ firstName, lastName, email, message }) =
   });
   if (error) throw new Error(z.prettifyError(error));
   return `Thank you for your message, ${data.firstName}! We will get back to you soon.`;
+};
+
+export const searchProducts = async ({ category, minPrice, maxPrice, query } = {}) => {
+  const { data, error } = productSearchSchema.safeParse({
+    category,
+    minPrice,
+    maxPrice,
+    query
+  });
+  if (error) throw new Error(z.prettifyError(error));
+  const response = await fetch('https://fakestoreapi.com/products');
+  if (!response.ok) throw new Error('Something went wrong while fetching products');
+  const products = await response.json();
+  const filteredProducts = products.filter(product => {
+    const matchesCategory = !data.category || product.category === data.category;
+    const matchesMinPrice = data.minPrice === undefined || product.price >= data.minPrice;
+    const matchesMaxPrice = data.maxPrice === undefined || product.price <= data.maxPrice;
+    const matchesQuery =
+      !data.query || product.title.toLowerCase().includes(data.query.toLowerCase());
+
+    return matchesCategory && matchesMinPrice && matchesMaxPrice && matchesQuery;
+  });
+
+  return filteredProducts;
 };
