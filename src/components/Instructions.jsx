@@ -45,7 +45,11 @@ const Instructions = ({ path }) => {
       </div>
     );
 
-  return <ReactMarkdown>{markdownText}</ReactMarkdown>;
+  return (
+    <div className='instructions-container'>
+      <ReactMarkdown>{markdownText}</ReactMarkdown>
+    </div>
+  );
 };
 
 export default Instructions;

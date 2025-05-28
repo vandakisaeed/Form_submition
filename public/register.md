@@ -1,4 +1,6 @@
-1. - Import `registerNewsletter` from `src/api/index.js`
-2. - Create an `action` for the form
-3. - Within the `action`, pass the `email` to `registerNewsletter`
-4. - Make the submit button show the status of the action with `useFormStatus`
+### Register to a newsletter
+
+- Import `registerNewsletter` from `src/api/index.js`
+- Create an `action` for the form
+- Within the `action`, pass the `email` to `registerNewsletter`
+- Make the submit button show the status of the action with `useFormStatus`
