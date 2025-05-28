@@ -24,6 +24,9 @@ const Register = () => {
         <pre data-prefix='3'>
           <code>- Within the action, pass the email to registerNewsletter</code>
         </pre>
+        <pre data-prefix='4'>
+          <code>- Make the submit button show the status of the action with useFormStatus</code>
+        </pre>
       </div>
     </div>
   );
