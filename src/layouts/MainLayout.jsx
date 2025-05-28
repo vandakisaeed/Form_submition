@@ -11,11 +11,11 @@ const MainLayout = () => {
         </div>
         <div className='flex-none'>
           <ul className='menu menu-horizontal px-1'>
-            <Link to='/contact' className='btn btn-ghost'>
-              Contact
-            </Link>
             <Link to='/register' className='btn btn-ghost'>
               Register
+            </Link>
+            <Link to='/contact' className='btn btn-ghost'>
+              Contact
             </Link>
             <Link to='/search' className='btn btn-ghost'>
               Search
