@@ -1,0 +1,86 @@
+import { useActionState, useEffect, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback, Instructions } from '../components';
+import { registerNewsletter } from '../api/index';
+
+const submitAction = async (prevState, formData) => {
+  try {
+    const email = formData.get('email');
+    registerNewsletter(email);
+    await sleep(2000);
+    console.log('Submitted:', { email });
+    return { error: null, success: true };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+
+const Register = () => {
+  const [state, formAction, isPending] = useActionState(submitAction, {});
+
+  const [{ email }, setFormData] = useState({
+    email: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  useEffect(() => {
+    if (state.succes) {
+      console.log(state);
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+      });
+    }
+  }, [state]);
+
+  return (
+    <div className="flex flex-col items-center">
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <form action={formAction}>
+          <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-lg border p-4">
+            <legend className="fieldset-legend">
+              Register to our newsletter
+            </legend>
+            <label
+              className="label"
+              id="email"
+              name="email"
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={handleChange}
+              disabled={isPending}
+            >
+              Email
+            </label>
+            <input className="input w-full" name="email" placeholder="Email" />
+            {state.error?.email && (
+              <p className="text-sm text-red-600 mt-1">{state.error?.email}</p>
+            )}
+            <button
+              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline${
+                isPending ? ' opacity-50 cursor-not-allowed' : ''
+              }`}
+              type="submit"
+              disabled={isPending}
+            >
+              {isPending ? 'Submitting...' : 'Submit'}
+            </button>
+          </fieldset>
+        </form>
+      </ErrorBoundary>
+      <Instructions path="/register.md" />
+    </div>
+  );
+};
+
+export default Register;

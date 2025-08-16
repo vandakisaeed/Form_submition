@@ -1,7 +1,12 @@
 import { use } from 'react';
 
-const SearchResults = ({ productsPromise }) => {
-  const { products } = use(productsPromise);
+// const SearchResults = ({ productsPromise }) => {
+//   const { products } = use(productsPromise);
+
+const SearchResults = ({ products }) => {
+  if (!products || products.length === 0) {
+    return <p>No products found</p>;
+  }
 
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-6 w-full max-w-6xl mx-auto'>
@@ -30,3 +35,24 @@ const SearchResults = ({ productsPromise }) => {
 };
 
 export default SearchResults;
+
+
+// const SearchResults = ({ products }) => {
+//   if (!products || products.length === 0) {
+//     return <p>No products found</p>;
+//   }
+
+//   return (
+//     <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
+//       {products.map((product) => (
+//         <li key={product.id} className="p-4 border rounded-lg">
+//           <h3 className="font-bold">{product.title}</h3>
+//           <p>{product.description}</p>
+//           <p className="text-green-600 font-semibold">${product.price}</p>
+//         </li>
+//       ))}
+//     </ul>
+//   );
+// };
+
+//export default SearchResults;

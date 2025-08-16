@@ -1,0 +1,113 @@
+import { useActionState, useEffect, useState } from 'react';
+import { sendContactForm } from '../api/index';
+
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback, Instructions } from '../components';
+
+const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+
+const submitAction = async (prevState, formData) => {
+  try {
+    const firstName = formData.get('firstName');
+    const lastName = formData.get('lastName');
+    const email = formData.get('email');
+    const message = formData.get('message');
+    sendContactForm({ email, firstName, lastName, message });
+    await sleep(2000);
+    console.log('Submitted:', { firstName, lastName, email, message });
+    return { error: null, success: true };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const Contact = () => {
+  const [state, formAction, isPending] = useActionState(submitAction, {});
+
+  const [{ firstName, lastName, email, message }, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    message: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  useEffect(() => {
+    if (state.succes) {
+      console.log(state);
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        message: '',
+      });
+    }
+  }, [state]);
+
+  return (
+    <div className="flex flex-col items-center">
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <form action={formAction}>
+          <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-lg border p-4">
+            <legend className="fieldset-legend">Contact Us</legend>
+            <label className="label">First Name</label>
+            <input
+              className="input w-full"
+              name="firstName"
+              placeholder="First Name"
+              value={firstName}
+              onChange={handleChange}
+              disabled={isPending}
+            />
+            <label className="label">Last Name</label>
+            <input
+              className="input w-full"
+              name="lastName"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={handleChange}
+              disabled={isPending}
+            />
+            <label className="label">Email</label>
+            <input
+              className="input w-full"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={handleChange}
+              disabled={isPending}
+            />
+            <label className="label">Message</label>
+            <textarea
+              className="textarea w-full"
+              name="message"
+              placeholder="Your message"
+              rows={4}
+              value={message}
+              onChange={handleChange}
+              disabled={isPending}
+            />
+            <button
+              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline${
+                isPending ? ' opacity-50 cursor-not-allowed' : ''
+              }`}
+              type="submit"
+              disabled={isPending}
+            >
+              {isPending ? 'Submitting...' : 'Submit'}
+            </button>
+          </fieldset>
+        </form>
+      </ErrorBoundary>
+      <Instructions path="/contact.md" />
+    </div>
+  );
+};
+
+export default Contact;
